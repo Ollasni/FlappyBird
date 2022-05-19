@@ -5,6 +5,7 @@
 #include <QBasicTimer>
 #include <QWidget>
 #include <QVector2D>
+#include <figures.h>
 
 class Board : public QWidget
 {
@@ -21,16 +22,16 @@ protected:
     void timerEvent(QTimerEvent *event);
 
 public:
-
+    int randomShape();
     void step();
-    void pixStright(const Figures &newPiece);
+    void pixStright(Figures &newPiece);
     void removeColomns();
     void draw(QPixmap *pixmap);
     void gameOver(QPainter &qm);
     bool checkForMove(const Figures &newFigure, int newX, int newY);
     int X;
     int Y;
-    Figures *newPiece();
+    Figures *newPiece(int, int);
     QBasicTimer timer;
     Board(QWidget *parent = nullptr);
     ~Board();

@@ -1,6 +1,8 @@
 #include "board.h"
 #include <QPixmap>
 #include <QKeyEvent>
+#include <figures.h>
+#include <QLabel>
 
 Board::Board(QWidget *parent)
     : QWidget(parent)
@@ -8,14 +10,18 @@ Board::Board(QWidget *parent)
     size = QSize(1000, 500);
     position = QVector2D(1, size.height()/2);
     texture_bird = new QPixmap("");
-    setStyleSheet("background-color:white;");
+    //setStyleSheet("background-color:white;");
     started = true;
     figure = newPiece();
     timer.start(300, this);
+    Figures *figure = new Figures(randomShape(), randomShape());
 }
 
 Board::~Board()
 {
+    delete texture_bird;
+    delete figure;
+
 }
 
 void Board::step() {
@@ -29,9 +35,7 @@ void Board::step() {
 
 Figures *Board::newPiece()
 {
-    Figures *figure = new Figures;
-    figure->colomn1 = randomShape();
-    figure->colomn2 = randomShape();
+//    Figures *figure = new Figures(randomShape(), randomShape());
     X = 0;
     Y = 500;
     if (!checkForMove(figure, X, Y)) {
@@ -41,21 +45,21 @@ Figures *Board::newPiece()
     return figure;
 }
 
-void Board::pixStright(const Figures &newPiece)
+void Board::pixStright(Figures &newPiece)
 {
     if (!checkForMove(newPiece, X + 1, Y)){
-        int x = X + 1 - newPiece.colomn1;
-        int y = Y + newPiece.colomn2;
+        int x = X + 1 - newPiece.getColomn1();
+        int y = Y + newPiece.getColomn2();
         removeColomns();
     }
     &&&&&&&&&&&&
 }
 
 
-bool Board::checkForMove(const Figures &newPiece, int newX, int newY)
+bool Board::checkForMove(Figures &newPiece, int newX, int newY)
 {
-    int x = newX + newPiece.colomn1;
-    int y = newY - newPiece.colomn2;
+    int x = newX + newPiece.getColomn1();
+    int y = newY - newPiece.getColomn2();
     if (x < 0 || x >= size.width() || y < 0 || y >= size.height())
         return false;
 
@@ -85,10 +89,9 @@ void Board::keyPressEvent(QKeyEvent *event)
         checkForMove(figure, X, Y - 1);
     if(key == Qt::Key_Up)
         checkForMove(figure, X, Y + 1);
-    QWidget::keyPressEvent(event);
 }
 
-int Figures::randomShape()
+int Board::randomShape()
 {
  int min = 1;
  int max = 1000;
@@ -97,9 +100,11 @@ int Figures::randomShape()
 
 }
 void Board::gameOver(QPixmap &qm) {
-        QString message = "Game over";
-        QFont font("Courier", 15, QFont::DemiBold);
-        QPixmap(QColor(Qt::white));
+        QLabel *label = new QLabel;
+        label->setFrameStyle((QFrame::Panel));
+        label->setText(("Game over"));
+        label->setPixmap(qm);
+        label->show();
 
 }
 
@@ -107,9 +112,9 @@ void Board::gameOver(QPixmap &qm) {
 bool Board::CheckCollision(Object2D *bird, Figures *colom)
 {
     bool collision = 0;
-    if(me.position.y >= colomn1 && me,position.y < colomn2)
+    if(me.position.y >= colom->getColomn1() && me.position.y < colom->getColomn2())
         collision = true;
-    else if(me.position.y < colomn1 && me,position.y >= colomn2)
+    else if(me.position.y < colom->getColomn1() && me.position.y >= colom->getColomn2())
         collision = true;
     else collision = false;
     return collision;
