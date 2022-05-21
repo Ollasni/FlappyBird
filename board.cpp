@@ -3,6 +3,7 @@
 #include <QKeyEvent>
 #include <figures.h>
 #include <QLabel>
+#include <QSize>
 
 Board::Board(QWidget *parent)
     : QWidget(parent)
@@ -102,7 +103,7 @@ int Board::randomShape()
 void Board::gameOver(QPixmap &qm) {
         QLabel *label = new QLabel;
         label->setFrameStyle((QFrame::Panel));
-        label->setText(("Game over"));
+        label->setText("Game over");
         label->setPixmap(qm);
         label->show();
 
@@ -112,9 +113,9 @@ void Board::gameOver(QPixmap &qm) {
 bool Board::CheckCollision(Object2D *bird, Figures *colom)
 {
     bool collision = 0;
-    if(me.position.y >= colom->getColomn1() && me.position.y < colom->getColomn2())
+    if(bird.position.y >= colom->getColomn1() && bird.position.y < colom->getColomn2())
         collision = true;
-    else if(me.position.y < colom->getColomn1() && me.position.y >= colom->getColomn2())
+    else if(bird.position.y < colom->getColomn1() && bird.position.y >= colom->getColomn2())
         collision = true;
     else collision = false;
     return collision;
