@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     bird.cpp \
-    colomns.cpp \
-    main.cpp
+    colomn.cpp \
+    main.cpp \
+    widget.cpp
 
 HEADERS += \
     bird.h \
-    colomns.h
+    colomn.h \
+    widget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

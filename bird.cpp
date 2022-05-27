@@ -1,13 +1,11 @@
 #include "bird.h"
-#include <QKeyEvent>
-#include <QPixmap>
+#include <QPainter>
+
 Bird::Bird()
 {
-    QPixmap("/home/olya/FlappyBirdQt");
 }
-
 void Bird::keyPressEvent(QKeyEvent *event) {
-   /* if(event->key() == Qt::Key_Left) {
+   /*if(event->key() == Qt::Key_Left) {
         setPos(x() - 10, y());
     }
     if(event->key() == Qt::Key_Right) {

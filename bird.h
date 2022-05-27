@@ -1,9 +1,9 @@
 #ifndef BIRD_H
 #define BIRD_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsEllipseItem>
 #include <QObject>
-
+#include <QKeyEvent>
 class Bird : public QGraphicsEllipseItem
 {
 public:
