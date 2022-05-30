@@ -25,7 +25,7 @@ void Colomn::move() {
     }
     else  {
         emit cancel();
-        cout << "signal " << endl;
+
     }
 
 }

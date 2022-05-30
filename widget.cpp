@@ -19,7 +19,6 @@ Widget::Widget(QWidget *parent)
     view = new QGraphicsView(scene, this);
     scene->setBackgroundBrush(Qt::red);
     bird = new Bird();
-   // bird_pixmap = QPixmap("pic/backgr.jpg");
     bird->setRect(W/50, H / 2, 60, 60);
     scene->addItem(bird);
     bird->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -29,7 +28,6 @@ Widget::Widget(QWidget *parent)
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(spawn()));
     timer->start(2000);
     QObject::connect(this, SIGNAL(cancelTimer()), timer, SLOT(stop()));
-    cout << "0" << endl;
 
 
 }
@@ -37,14 +35,9 @@ Widget::Widget(QWidget *parent)
 Widget::~Widget()
 {
     delete bird;
-    cout << "b" << endl;
     delete view;
-    cout << "v" << endl;
-    cout << "t" << endl;
-    delete pixmap;
-    cout << "p" << endl;
+    delete pixmap;   
     delete scene;
-    cout << "s" << endl;
     for(int i = 0; i < vect.size(); i++) {
         cout << "x" << endl;
         if(vect[i] != nullptr) {
@@ -60,7 +53,6 @@ void Widget::spawn() {
     vect.push_back(col);
     vect.push_back(col1);
     int x = rand()% 400;
-    cout << "1" << endl;
     col->setRect(W - 100, 0, 60, x);
     col1->setRect(W - 100, x + 100, 60, H - 100 - x);
     y++;
@@ -72,24 +64,15 @@ void Widget::spawn() {
     QObject::connect(col, SIGNAL(cancel()), this, SLOT(gameOver()));
     QObject::connect(col1, SIGNAL(cancel()), this, SLOT(gameOver()));
 
-
 }
 
 
 void Widget::gameOver() {
-    cout << "2" << endl;
     scene->clear();
     scene->setBackgroundBrush(Qt::blue);
     emit cancelTimer();
-    cout << "timer sig stop " << endl;
     QGraphicsTextItem* overText = new QGraphicsTextItem(QString("GAME OVER"), nullptr);
-    cout << "3" << endl;
     overText->setPos(W/2 ,H/2);
     scene->addItem(overText);
-    cout << "4" << endl;
-   // QGraphicsRectItem *rect = new QGraphicsRectItem(nullptr);
-    //rect->setRect(300, 500, 200, 200);
-    //scene->addItem(rect);
-    //QObject::connect(rect, SIGNAL(clicked()), this, SLOT(closed()));
 
 }
