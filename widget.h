@@ -14,21 +14,21 @@ class Widget : public QWidget
     QGraphicsView *view;
     QPixmap *pixmap;
     Bird *bird;
-  //  Colomn *c1;
-   // Colomn *c2;
+    QTimer *timer;
     int y = 2;
-    QList<Colomn *> vect;
+    QVector<Colomn *> vect;
     int count;
+    QGraphicsTextItem* overText;
     void checkCollision();
-   // CreateColomns *c;
 public:
     int H = 600;
     int W = 1300;
-   // void keyPressEvent(QKeyEvent * event);
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    void gameOver();
+signals:
+    void cancelTimer();
 public slots:
     void spawn();
+    void gameOver();
 };
 #endif // WIDGET_H

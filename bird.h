@@ -8,6 +8,7 @@ class Bird : public QGraphicsEllipseItem
 {
 public:
     Bird();
+    ~Bird();
     void keyPressEvent(QKeyEvent *event);
 };
 

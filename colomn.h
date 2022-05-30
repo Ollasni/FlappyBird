@@ -10,10 +10,13 @@ class Colomn : public QObject, public QGraphicsRectItem
         Q_OBJECT
 public:
     Colomn();
+    ~Colomn();
     int W = 1300;
    // int m = 0;
 public slots:
     void move();
+signals:
+    void cancel();
 
 };
 

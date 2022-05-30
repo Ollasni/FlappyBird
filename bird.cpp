@@ -1,8 +1,14 @@
 #include "bird.h"
 #include <QPainter>
+#include <iostream>
 
+using namespace std;
 Bird::Bird()
 {
+    cout << "Bird Created" << endl;
+}
+Bird::~Bird() {
+    cout << "NOBIRD" << endl;
 }
 void Bird::keyPressEvent(QKeyEvent *event) {
    /*if(event->key() == Qt::Key_Left) {
